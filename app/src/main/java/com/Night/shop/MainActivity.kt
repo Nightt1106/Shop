@@ -1,5 +1,6 @@
 package com.Night.shop
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,15 +11,29 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val RC_SIGNUP = 200
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        var signup = false
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        if(!signup){
+            var intent = Intent(this,SignUpActivity::class.java)
+            startActivityForResult(intent,RC_SIGNUP)
+        }
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+    }
+
+    override fun onActivityReenter(resultCode: Int, data: Intent?) {
+        super.onActivityReenter(resultCode, data)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
