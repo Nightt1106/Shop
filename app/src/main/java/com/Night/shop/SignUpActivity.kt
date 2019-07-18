@@ -18,7 +18,7 @@ class SignUpActivity : AppCompatActivity() {
             FirebaseAuth.getInstance()
                 .createUserWithEmailAndPassword(sEmail,sPassword)
                 .addOnCompleteListener {
-                    if(it.isSuccessful){
+                    if(it.isSuccessful()){
                         AlertDialog.Builder(this)
                             .setTitle("Sign Up")
                             .setMessage("Account created")

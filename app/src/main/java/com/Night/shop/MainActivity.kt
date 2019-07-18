@@ -1,5 +1,6 @@
 package com.Night.shop
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
@@ -11,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val RC_NICKNAME = 210
     private val RC_SIGNUP = 200
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,8 +34,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityReenter(resultCode: Int, data: Intent?) {
-        super.onActivityReenter(resultCode, data)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if( requestCode == RC_SIGNUP){
+            if(resultCode == Activity.RESULT_OK){
+                val intent = Intent(this,NickNameActivity::class.java)
+                startActivityForResult(intent,RC_NICKNAME)
+            }
+        }
+        if( requestCode == RC_NICKNAME){
+
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
