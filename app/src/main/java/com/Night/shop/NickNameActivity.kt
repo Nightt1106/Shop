@@ -14,11 +14,7 @@ class NickNameActivity : AppCompatActivity() {
 
         done.setOnClickListener{
             //TODO: nickname
-            getSharedPreferences("shop",Context.MODE_PRIVATE)
-                .edit()
-                .putString("NICKNAME",nickname.text.toString())
-                .apply()
-            setResult(Activity.RESULT_OK)
+            setNickName(nickname.text.toString())
             finish()
         }
     }
