@@ -34,5 +34,8 @@
             android:layout_width="70dp"
             android:layout_height="29dp" android:id="@+id/nick"
             android:layout_gravity="right" android:text="1234" android:layout_marginTop="80dp"/>
+    <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/spinner" android:layout_marginTop="120dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
