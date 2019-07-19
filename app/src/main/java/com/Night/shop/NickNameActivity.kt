@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_nick_name.*
 
 class NickNameActivity : AppCompatActivity() {
@@ -15,6 +17,14 @@ class NickNameActivity : AppCompatActivity() {
         done.setOnClickListener{
             //TODO: nickname
             setNickName(nickname.text.toString())
+
+            FirebaseDatabase.getInstance()
+                .getReference("users")
+                .child(FirebaseAuth.getInstance().currentUser!!.uid)
+                .child("nickname")
+                .setValue(nickname.text.toString())
+
+            setResult(Activity.RESULT_OK)
             finish()
         }
     }

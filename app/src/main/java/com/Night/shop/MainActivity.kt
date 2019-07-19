@@ -9,6 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -17,11 +21,12 @@ class MainActivity : AppCompatActivity() {
     private val RC_NICKNAME = 210
     private val RC_SIGNUP = 200
 
+    val auth = FirebaseAuth.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         var signup = false
 
-        val auth = FirebaseAuth.getInstance()
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -39,6 +44,8 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+
+
         }
     }
     private fun authChange(auth: FirebaseAuth) {
@@ -66,8 +73,23 @@ class MainActivity : AppCompatActivity() {
     //TODO: BUG
     override fun onResume() {
         super.onResume()
-        nick.text = getNickName()
-        Log.d("MainActivity",getNickName() )
+        /*nick.text = getNickName()
+        Log.d("MainActivity",getNickName() )*/
+
+        FirebaseDatabase.getInstance()
+            .getReference("users")
+            .child(auth.currentUser!!.uid)
+            .child("nickname")
+            .addListenerForSingleValueEvent(object :ValueEventListener{
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    nick.text = dataSnapshot.value as String //To change body of created functions use File | Settings | File Templates.
+                }
+
+            })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
