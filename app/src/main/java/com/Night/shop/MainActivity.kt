@@ -1,17 +1,18 @@
 package com.Night.shop
 
 import android.app.Activity
+import android.app.LauncherActivity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.widget.Adapter
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -19,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.row_function.view.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     private val RC_SIGNUP = 200
 
     val auth = FirebaseAuth.getInstance()
+
+    val functions : List<String> = listOf<String>("A","B","C","D","E","F","G","H","I","K")
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -63,12 +67,44 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        //RecyclerView
+        //TODO: recycler
+        recycler.layoutManager = LinearLayoutManager(this)
+        recycler.setHasFixedSize(true)
+        recycler.adapter = FunctionAdapter()
+
+        //-----------------
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+    }
+
+    //!---------------------
+
+    inner class FunctionAdapter : RecyclerView.Adapter<FunctionHolder>(){
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FunctionHolder {
+            val view: View = LayoutInflater.from(parent.context)
+                .inflate(R.layout.row_function,parent,false)
+            val holder = FunctionHolder(view)
+            return holder
+        }
+
+        override fun getItemCount(): Int {
+            return functions.size
+        }
+
+        override fun onBindViewHolder(holder: FunctionHolder, position: Int) {
+            holder.nemeText.text = functions.get(position)
+        }
 
     }
+
+    class FunctionHolder(view:View) : RecyclerView.ViewHolder(view){
+        var nemeText : TextView = view.name
+    }
+
+    //!---------------------
     private fun authChange(auth: FirebaseAuth) {
         if(auth.currentUser == null){
             val intent = Intent(this,SignUpActivity::class.java)
