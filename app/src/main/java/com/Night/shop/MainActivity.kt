@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     val auth = FirebaseAuth.getInstance()
 
-    val functions : List<String> = listOf<String>("Contact","B","C","D","E","F","G","H","I","K")
+    val functions : List<String> = listOf<String>("Contact","Parking","C","D","E","F","G","H","I","K")
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -106,6 +106,7 @@ class MainActivity : AppCompatActivity() {
         Log.d("MainActivity","HolderOnClickFunction:$position")
         when(position){
             0 -> startActivity(Intent(this,ContactActivity::class.java))
+            1 -> startActivity(Intent(this, ParkingActivity::class.java))
         }
     }
 
