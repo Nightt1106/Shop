@@ -2,17 +2,17 @@ package com.Night.shop
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.annotation.TargetApi
+
 import android.content.pm.PackageManager
 import android.database.Cursor
-import android.os.Build
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+
 
 
 class ContactActivity : AppCompatActivity() {
@@ -35,9 +35,10 @@ class ContactActivity : AppCompatActivity() {
         } else {
             readContacts()
         }
-
-
     }
+
+
+
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
 
@@ -59,3 +60,7 @@ class ContactActivity : AppCompatActivity() {
         }
     }
 }
+
+//Plug: JSON TO KOTLIN
+
+
