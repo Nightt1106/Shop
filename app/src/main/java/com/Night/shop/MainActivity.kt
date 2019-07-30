@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     val auth = FirebaseAuth.getInstance()
 
-    val functions : List<String> = listOf<String>("Contact","Parking","C","D","E","F","G","H","I","K")
+    val functions : List<String> = listOf<String>("Contact","Parking","Movie","D","E","F","G","H","I","K")
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: FunctionHolder, position: Int) {
-            holder.nemeText.text = functions.get(position)
+            holder.nameText.text = functions.get(position)
             holder.itemView.setOnClickListener{
                 HolderOnClickFuncion(holder,position)
             }
@@ -102,17 +102,20 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    class FunctionHolder(view:View) : RecyclerView.ViewHolder(view){
+        var nameText : TextView = view.name
+    }
+
     private fun HolderOnClickFuncion(holder: RecyclerView.ViewHolder, position: Int) {
         Log.d("MainActivity","HolderOnClickFunction:$position")
         when(position){
             0 -> startActivity(Intent(this,ContactActivity::class.java))
             1 -> startActivity(Intent(this, ParkingActivity::class.java))
+            2 -> startActivity(Intent(this, MovieActivity::class.java))
         }
     }
 
-    class FunctionHolder(view:View) : RecyclerView.ViewHolder(view){
-        var nemeText : TextView = view.name
-    }
+
     //!---------------------
 
 
