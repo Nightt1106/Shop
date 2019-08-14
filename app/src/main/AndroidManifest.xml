@@ -13,6 +13,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
+        <activity
+                android:name=".BusActivity"
+                android:label="@string/title_activity_bus"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity android:name=".MovieActivity">
         </activity>
         <activity android:name=".ParkingActivity">

@@ -16,11 +16,19 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_movie.*
 import kotlinx.android.synthetic.main.row_movie_fruction.view.*
 import org.jetbrains.anko.*
+import retrofit2.Call
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
 import java.net.URL
 
 class MovieActivity : AppCompatActivity(), AnkoLogger {
 
     var movies : List<Movie>? = null
+    val retrofit = Retrofit.Builder()
+        .baseUrl("https://api.myjson.com/bins/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,11 +37,21 @@ class MovieActivity : AppCompatActivity(), AnkoLogger {
 
         doAsync {
 
-            val json : String = URL("https://api.myjson.com/bins/9kek5").readText()
-            movies  = Gson().fromJson<List<Movie>>(json, object : TypeToken<List<Movie>>(){}.type)
+            /*val json : String = URL("https://api.myjson.com/bins/9kek5").readText()
+            movies  = Gson().fromJson<List<Movie>>(json, object : TypeToken<List<Movie>>(){}.type)*/
 //            movies?.forEach {
 //                info ( "${it.Director}" )
 //            }
+
+            val movieSevice = retrofit.create(MovieSevice::class.java)
+            movies = movieSevice.listMovie()
+                .execute()
+                .body()
+
+            movies?.forEach {
+                info("${it.Actors} ${it.Director}")
+            }
+
             uiThread {
                 recycler.layoutManager = LinearLayoutManager(it)
                 recycler.setHasFixedSize(true)
@@ -113,3 +131,8 @@ data class Movie(
     val imdbRating: String,
     val imdbVotes: String
 )
+
+interface  MovieSevice {
+    @GET("9kek5")
+    fun listMovie(): Call<List<Movie>>
+}
