@@ -9,4 +9,9 @@
         tools:showIn="@layout/activity_bus"
         tools:context=".BusActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="395dp"
+            android:layout_height="659dp" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" android:id="@+id/recycler_bus"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
